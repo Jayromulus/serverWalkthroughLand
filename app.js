@@ -33,6 +33,9 @@ app.use('/pies', pies);
 const spanishfood = require('./controllers/spanishfoodcontroller');
 app.use('/spanishfood', spanishfood);
 
+const usercontroller = require('./controllers/usercontroller');
+app.use('/user', usercontroller)
+
 // this will start our server on the port number we supply, and will console.log a message telling us the server is running
 app.listen(process.env.PORT, function(){ console.log(`app is listening on port ${process.env.PORT}`) });
 
