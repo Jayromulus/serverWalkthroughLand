@@ -3,13 +3,15 @@
 const router = require('express').Router();
 const SpanishFood = require('../db').import('../models/spanishfood');
 
+const validateSession = require('../middleware/validate-session');
+
 router.get('/', (req, res) => {
   SpanishFood.findAll()
     .then(food => res.status(200).json(food))
     .catch(err => res.status(500).json({error: err}))
 })
 
-router.post('/', (req, res) => {
+router.post('/', validateSession, (req, res) => {
   const spanishFoodFromRequest = {
     nameOfFood: req.body.name,
     isSpicy: req.body.spicy,
@@ -41,7 +43,7 @@ router.get('/:name', (req, res) => {
 });
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateSession, (req, res) => {
   SpanishFood.update(req.body, {
     where: { id: req.params.id }
   })
@@ -50,7 +52,7 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validateSession, async (req, res) => {
   try {
     const result = await SpanishFood.destroy({
       where: { id: req.params.id }

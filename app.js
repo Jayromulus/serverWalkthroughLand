@@ -14,6 +14,8 @@ database.sync();
 
 app.use(Express.json());
 
+app.use(require('./middleware/headers'));
+
 app.use(Express.static(__dirname + '/public'));
 console.log(__dirname);
 
